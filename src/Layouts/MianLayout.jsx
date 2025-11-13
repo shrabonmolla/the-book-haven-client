@@ -6,7 +6,7 @@ import Footer from "../Components/Footer";
 export default function MianLayout() {
   return (
     <div>
-      <nav>
+      <nav className="mt-6">
         <Navbar />
       </nav>
       <section>

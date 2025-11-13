@@ -1,30 +1,85 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { Authcontext } from "../../Provider/AuthProvider";
 
 export default function Register() {
+  const { googleLogIn, setUser, createUser, updateUser } =
+    useContext(Authcontext);
+
+  // login
+  function handleGoogleLogIN() {
+    googleLogIn()
+      .then((res) => setUser(res.user))
+      .catch((err) => console.log(err.message));
+  }
+
+  // register a user
+
+  function handleRegister(e) {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photo = e.target.photo.value;
+    const password = e.target.password.value;
+    console.log(name, email, photo, password);
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
+        updateUser({
+          displayName: name,
+          photoURL: photo,
+        })
+          .then((res) =>
+            setUser({ ...user, displayName: name, photoURL: photo })
+          )
+          .catch((err) => alert("cant update your profie"));
+        e.target.reset();
+        alert("registration is successful");
+      })
+      .catch((err) => console.log(err.message));
+  }
   return (
     <div className="flex flex-col justify-center items-center ">
       <h1 className="text-center">
         <div className="font-bold text-2xl">Register Now</div>
-       
       </h1>
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
         <div className="card-body">
           {/* form */}
-          <form className="fieldset">
+          <form onSubmit={handleRegister} className="fieldset">
             {/* Name */}
             <label className="label">Name</label>
-            <input type="text" className="input" placeholder="Name" />
+            <input
+              name="name"
+              type="text"
+              className="input"
+              placeholder="Name"
+            />
             {/* Email */}
             <label className="label">Email</label>
-            <input type="email" className="input" placeholder="Email" />
+            <input
+              name="email"
+              type="email"
+              className="input"
+              placeholder="Email"
+            />
             {/* Photo Url */}
             <label className="label">Photo Url</label>
-            <input type="text" className="input" placeholder="Photo Url" />
+            <input
+              name="photo"
+              type="text"
+              className="input"
+              placeholder="Photo Url"
+            />
 
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" className="input" placeholder="Password" />
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+            />
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
@@ -42,7 +97,10 @@ export default function Register() {
           </div>
 
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handleGoogleLogIN}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

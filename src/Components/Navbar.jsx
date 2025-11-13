@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../assets/logo.png";
 import { LogInIcon } from "lucide-react";
+import { Authcontext } from "../Provider/AuthProvider";
 
 export default function Navbar() {
+  const { user, logOut } = useContext(Authcontext);
   const lnikList = (
     <>
       <li>
@@ -20,6 +22,10 @@ export default function Navbar() {
       </li>
     </>
   );
+  // logout the user
+  function handleLogOut() {
+    logOut();
+  }
   return (
     <div>
       <div className="navbar  ">
@@ -61,13 +67,23 @@ export default function Navbar() {
             </div>
           </Link>
         </div>
+
         <div className="navbar-center hidden lg:flex border gap-3 border-gray-300 rounded-4xl p-1 shadow">
           <ul className="menu menu-horizontal px-1">{lnikList} </ul>
         </div>
         <div className="navbar-end gap-4">
-          <Link to="/login" className="underline">
-            Login
-          </Link>
+          {user ? (
+            <>
+              <h1>{user.displayName}</h1>
+              <Link onClick={handleLogOut} className="underline">
+                Log Out
+              </Link>
+            </>
+          ) : (
+            <Link to="/login" className="underline">
+              Login
+            </Link>
+          )}
           <Link to="/register" className="btn rounded-4xl border-none">
             Register <LogInIcon />
           </Link>

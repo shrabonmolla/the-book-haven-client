@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { Authcontext } from "../../Provider/AuthProvider";
 export default function Login() {
+  const { googleLogIn, setUser, logIn } = useContext(Authcontext);
+  // login with google
+  function handleGoogleLogIN() {
+    googleLogIn()
+      .then((res) => setUser(res.user))
+      .catch((err) => console.log(err.message));
+  }
+  // login with email pass
+  function handleLogIn(e) {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    logIn(email, password)
+      .then((res) => alert("login successful"))
+      .catch((err) => alert("cant login"));
+  }
   return (
     <div className="flex flex-col justify-center items-center ">
       <h1 className="text-center">
@@ -10,13 +28,23 @@ export default function Login() {
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl ">
         <div className="card-body">
           {/* form */}
-          <form className="fieldset">
+          <form onSubmit={handleLogIn} className="fieldset">
             {/* Email */}
             <label className="label">Email</label>
-            <input type="email" className="input" placeholder="Email" />
+            <input
+              name="email"
+              type="email"
+              className="input"
+              placeholder="Email"
+            />
             {/* password */}
             <label className="label">Password</label>
-            <input type="password" className="input" placeholder="Password" />
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+            />
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
@@ -34,7 +62,10 @@ export default function Login() {
           </div>
 
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handleGoogleLogIN}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"
