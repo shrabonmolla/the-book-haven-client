@@ -46,6 +46,7 @@ export default function Login() {
               type="email"
               className="input"
               placeholder="Email"
+              required
             />
             {/* password */}
             <label className="label">Password</label>
@@ -54,6 +55,7 @@ export default function Login() {
               type="password"
               className="input"
               placeholder="Password"
+              required
             />
             <div>
               <a className="link link-hover">Forgot password?</a>

@@ -4,6 +4,7 @@ import LatestBook from "../Components/LatestBook";
 import { Suspense } from "react";
 import BookOftheWeek from "../Components/BookOftheWeek";
 import About from "../Components/About";
+import Loading from "../Components/Loading";
 
 export default function Home() {
   const bookPromise = fetch("http://localhost:3000/latest-book").then((res) =>
@@ -13,7 +14,7 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      <Suspense fallback="kire mamam laoding hoitaseeeeeeeeeeeeeeee">
+      <Suspense fallback={<Loading />}>
         <LatestBook bookPromise={bookPromise} />
       </Suspense>
       <BookOftheWeek />

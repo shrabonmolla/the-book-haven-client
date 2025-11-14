@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+
 a.active {
   @apply bg-gray-100 rounded-4xl;
 }

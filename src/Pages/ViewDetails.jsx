@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 export default function ViewDetails() {
   const bookdetail = useLoaderData();
-  const { coverImage, title, author, userEmail, rating, summury, _id } =
+  const { coverImage, title, author, userEmail, rating, summury, _id, genre } =
     bookdetail;
   const navigate = useNavigate();
   const { user } = useContext(Authcontext);
@@ -45,6 +45,8 @@ export default function ViewDetails() {
           <h2 className="text-2xl md:text-3xl font-bold text-green-700">
             {title}
           </h2>
+          {/* genre */}
+          <div className="badge badge-soft badge-accent">{genre}</div>
 
           {/* Book Info */}
           <div className="space-y-3 text-gray-700">

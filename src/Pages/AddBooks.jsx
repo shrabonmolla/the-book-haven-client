@@ -8,6 +8,7 @@ export default function AddBooks() {
     const booksdata = {
       title: e.target.Title.value,
       author: e.target.Author.value,
+      genre: e.target.Genre.value,
       rating: e.target.Rating.value,
       summury: e.target.Summury.value,
       coverImage: e.target.CoverImage.value,
@@ -44,6 +45,7 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="Title"
+              required
             />
             {/* author */}
             <label className="label">Author</label>
@@ -52,6 +54,16 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="Author"
+              required
+            />
+            {/* genre */}
+            <label className="label">Genre</label>
+            <input
+              name="Genre"
+              type="text"
+              className="input"
+              placeholder="Genre"
+              required
             />
             {/* Rating */}
             <label className="label">Rating</label>
@@ -60,6 +72,7 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="Rating"
+              required
             />
             {/* Summury */}
             <label className="label">Summury</label>
@@ -68,6 +81,7 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="Summury"
+              required
             />
             {/* Cover Image */}
             <label className="label">Cover Image</label>
@@ -76,6 +90,7 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="Cover Image"
+              required
             />
             {/* Email */}
             <label className="label">User Email</label>
@@ -84,6 +99,7 @@ export default function AddBooks() {
               type="text"
               className="input"
               placeholder="User Email"
+              required
             />
 
             <button className="btn btn-neutral mt-4">Add Books</button>

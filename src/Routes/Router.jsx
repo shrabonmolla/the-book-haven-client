@@ -10,11 +10,15 @@ import Register from "../Authentication/AuthPages/Register";
 import PrivateRoute from "../Provider/PrivateRoute";
 import ViewDetails from "../Pages/ViewDetails";
 import EditBook from "../Pages/EditBook";
+import Error from "../Pages/Error";
+import Loading from "../Components/Loading";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MianLayout />,
+    errorElement: <Error />,
+    hydrateFallbackElement: <Loading />,
     children: [
       {
         path: "/",

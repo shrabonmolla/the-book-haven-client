@@ -77,6 +77,7 @@ export default function Register() {
               type="text"
               className="input"
               placeholder="Name"
+              required
             />
             {/* Email */}
             <label className="label">Email</label>
@@ -85,6 +86,7 @@ export default function Register() {
               type="email"
               className="input"
               placeholder="Email"
+              required
             />
             {/* Photo Url */}
             <label className="label">Photo Url</label>
@@ -93,6 +95,7 @@ export default function Register() {
               type="text"
               className="input"
               placeholder="Photo Url"
+              required
             />
 
             {/* password */}
@@ -102,6 +105,7 @@ export default function Register() {
               type="password"
               className="input"
               placeholder="Password"
+              required
             />
             <div>
               <a className="link link-hover">Forgot password?</a>

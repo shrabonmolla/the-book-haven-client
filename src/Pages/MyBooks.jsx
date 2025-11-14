@@ -19,7 +19,7 @@ export default function MyBooks() {
   }, [user]);
   return (
     <div>
-      <h1>{displayData.length}</h1>
+      <h1 className="text-2xl font-bold text-center">My Books:{displayData.length}</h1>
       <div>
         {displayData && displayData.map((data) => <Table book={data}></Table>)}
       </div>
