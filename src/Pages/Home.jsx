@@ -7,9 +7,9 @@ import About from "../Components/About";
 import Loading from "../Components/Loading";
 
 export default function Home() {
-  const bookPromise = fetch("http://localhost:3000/latest-book").then((res) =>
-    res.json()
-  );
+  const bookPromise = fetch(
+    "https://book-haven-server-nine.vercel.app/latest-book"
+  ).then((res) => res.json());
 
   return (
     <div>

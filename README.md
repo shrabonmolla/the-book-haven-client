@@ -1,16 +1,68 @@
-# React + Vite
+📚 Key Features of Book Haven
+🌟 1. Modern & Elegant Bookstore Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, visually appealing UI that helps readers explore books effortlessly. The layout is fully responsive, offering a seamless browsing experience on mobile, tablet, and desktop.
 
-Currently, two official plugins are available:
+🔍 2. Advanced Book Search & Filtering
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Find the perfect book instantly using:
 
-## React Compiler
+Category filters
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Author filters
 
-## Expanding the ESLint configuration
+Price range
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Rating filters
+
+Keyword-based smart search
+
+📖 3. Detailed Book Pages
+
+Each book comes with:
+
+Cover image
+
+Summary/description
+
+Author details
+
+Price
+
+Ratings & reviews
+
+Related books section
+
+Helps readers make informed choices before buying or reading.
+
+🛒 4. Wishlist & Add to Cart
+
+Users can save their favorite books for later or add them to the cart with one click.
+
+👤 5. User Authentication
+
+Secure user accounts with:
+
+Email/password login
+
+Google / Facebook login (optional)
+
+Password reset
+
+Each user gets a personalized dashboard.
+
+⭐ 6. Book Reviews & Ratings
+
+Readers can leave reviews and rate books. This helps build trust and community engagement.
+
+💳 7. Secure Checkout System
+
+A smooth and protected checkout experience with multiple payment options (Stripe, SSLCommerz, etc., depending on your setup).
+
+📱 8. Fully Responsive & Mobile Friendly
+
+Book Haven is optimized for all screen sizes with fast loading and a beautiful reading experience on small devices.
+
+🌙 9. Dark Mode
+
+A built-in light/dark mode toggle for user comfort during day and night reading.

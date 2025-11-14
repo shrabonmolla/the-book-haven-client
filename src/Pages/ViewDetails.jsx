@@ -13,12 +13,15 @@ export default function ViewDetails() {
 
   //   handleDelete
   const handleDelete = () => {
-    fetch(`http://localhost:3000/delete-book/${_id}/?email=${user.email}`, {
-      method: "delete",
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
-      },
-    })
+    fetch(
+      `https://book-haven-server-nine.vercel.app/delete-book/${_id}/?email=${user.email}`,
+      {
+        method: "delete",
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("delted one book ", data);

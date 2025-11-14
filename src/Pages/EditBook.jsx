@@ -19,7 +19,7 @@ export default function EditBook() {
       coverImage: e.target.CoverImage.value,
       userEmail: e.target.UserEmail.value,
     };
-    fetch(`http://localhost:3000/update-book/${_id}`, {
+    fetch(`https://book-haven-server-nine.vercel.app/update-book/${_id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

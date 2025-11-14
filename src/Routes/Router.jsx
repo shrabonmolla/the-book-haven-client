@@ -27,7 +27,8 @@ export const router = createBrowserRouter([
       {
         path: "/allbooks",
         element: <AllBoooks />,
-        loader: () => fetch("http://localhost:3000/all-books"),
+        loader: () =>
+          fetch("https://book-haven-server-nine.vercel.app/all-books"),
       },
       {
         path: "/addbooks",
@@ -45,7 +46,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/book-details/${params.id}`),
+          fetch(
+            `https://book-haven-server-nine.vercel.app/book-details/${params.id}`
+          ),
       },
 
       {
@@ -60,13 +63,17 @@ export const router = createBrowserRouter([
         path: "/book-details/:id",
         element: <ViewDetails />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/book-details/${params.id}`),
+          fetch(
+            `https://book-haven-server-nine.vercel.app/book-details/${params.id}`
+          ),
       },
       {
         path: "/update-book/:id",
         element: <EditBook />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/book-details/${params.id}`),
+          fetch(
+            `https://book-haven-server-nine.vercel.app/book-details/${params.id}`
+          ),
       },
     ],
   },
