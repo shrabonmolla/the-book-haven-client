@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useLoaderData, useParams } from "react-router";
 import { Authcontext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 export default function EditBook() {
   const booksdata = useLoaderData();
@@ -28,7 +29,10 @@ export default function EditBook() {
       body: JSON.stringify(updatedBooksdata),
     })
       .then((res) => res.json())
-      .then((data) => console.log("updated successfully", data));
+      .then((data) => {
+        console.log("updated successfully", data);
+        toast.success("successfully updated");
+      });
   }
   return (
     <div className="flex flex-col justify-center items-center ">

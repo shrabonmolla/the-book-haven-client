@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router";
 
 export default function AddBooks() {
@@ -24,6 +25,7 @@ export default function AddBooks() {
       .then((data) => {
         console.log("added one books", data);
         e.target.reset();
+        toast.success("one book added ");
       });
   }
   return (

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../../Provider/AuthProvider";
 import { PlayCircle } from "lucide-react";
-
+import { toast } from "react-hot-toast";
 export default function Register() {
   const [err, setErr] = useState(false);
   const { googleLogIn, setUser, createUser, updateUser } =
@@ -16,6 +16,7 @@ export default function Register() {
     googleLogIn()
       .then((res) => {
         setUser(res.user);
+        toast.success("logged in succesfully");
         navigate(loacation.state ? loacation.state : "/");
       })
       .catch((err) => console.log(err.message));
@@ -53,12 +54,12 @@ export default function Register() {
           .then((res) =>
             setUser({ ...user, displayName: name, photoURL: photo })
           )
-          .catch((err) => alert("cant update your profie"));
+          .catch((err) => toast.error("cant update your profie"));
         e.target.reset();
-        alert("registration is successful");
+        toast.success("registration is successful");
         navigate(loacation.state ? loacation.state : "/");
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => toast.error(err.message));
   }
   return (
     <div className="flex flex-col justify-center items-center ">

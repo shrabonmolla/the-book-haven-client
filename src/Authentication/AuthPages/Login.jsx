@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../../Provider/AuthProvider";
+import toast from "react-hot-toast";
 export default function Login() {
   const { googleLogIn, setUser, logIn } = useContext(Authcontext);
   const navigate = useNavigate();
@@ -9,8 +10,9 @@ export default function Login() {
   function handleGoogleLogIN() {
     googleLogIn()
       .then((res) => {
-        setUser(res.user)
-         navigate(loacation.state ? loacation.state : "/");
+        setUser(res.user);
+        toast.success("login successfully");
+        navigate(loacation.state ? loacation.state : "/");
       })
       .catch((err) => console.log(err.message));
   }
@@ -22,10 +24,10 @@ export default function Login() {
     console.log(email, password);
     logIn(email, password)
       .then((res) => {
-        alert("login successful");
+        toast.success("login successful");
         navigate(loacation.state ? loacation.state : "/");
       })
-      .catch((err) => alert("cant login"));
+      .catch((err) => toast.error("cant login"));
   }
   return (
     <div className="flex flex-col justify-center items-center ">

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { Pencil, Trash2, User, Mail, Star } from "lucide-react";
 import { Authcontext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 export default function ViewDetails() {
   const bookdetail = useLoaderData();
@@ -21,6 +22,7 @@ export default function ViewDetails() {
       .then((res) => res.json())
       .then((data) => {
         console.log("delted one book ", data);
+        toast.success("you delete this book");
         navigate("/");
       });
   };
