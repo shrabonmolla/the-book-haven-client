@@ -74,7 +74,13 @@ export default function Navbar() {
         <div className="navbar-end gap-4">
           {user ? (
             <>
-              <h1>{user.displayName}</h1>
+              <div className="tooltip" data-tip={user.displayName}>
+                <div className="avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoURL} />
+                  </div>
+                </div>
+              </div>
               <Link onClick={handleLogOut} className="underline">
                 Log Out
               </Link>

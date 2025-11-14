@@ -1,15 +1,23 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../../Provider/AuthProvider";
+import { PlayCircle } from "lucide-react";
 
 export default function Register() {
+  const [err, setErr] = useState(false);
   const { googleLogIn, setUser, createUser, updateUser } =
     useContext(Authcontext);
+
+  const navigate = useNavigate();
+  const loacation = useLocation();
 
   // login
   function handleGoogleLogIN() {
     googleLogIn()
-      .then((res) => setUser(res.user))
+      .then((res) => {
+        setUser(res.user);
+        navigate(loacation.state ? loacation.state : "/");
+      })
       .catch((err) => console.log(err.message));
   }
 
@@ -22,6 +30,19 @@ export default function Register() {
     const photo = e.target.photo.value;
     const password = e.target.password.value;
     console.log(name, email, photo, password);
+    // password validation
+    const upperCaseRegex = /[A-Z]/;
+    const lowerCaseRegex = /[a-z]/;
+    const lengthRegex = /.{6,}/;
+    if (!upperCaseRegex.test(password)) {
+      return setErr("❌ Must contain at least one uppercase letter");
+    } else if (!lowerCaseRegex.test(password)) {
+      return setErr("❌ Must contain at least one lowercase letter");
+    } else if (!lengthRegex.test(password)) {
+      return setErr("❌ Must be at least 6 characters long");
+    } else {
+      setErr("✅ Password is valid");
+    }
     createUser(email, password)
       .then((res) => {
         const user = res.user;
@@ -35,6 +56,7 @@ export default function Register() {
           .catch((err) => alert("cant update your profie"));
         e.target.reset();
         alert("registration is successful");
+        navigate(loacation.state ? loacation.state : "/");
       })
       .catch((err) => console.log(err.message));
   }
@@ -84,6 +106,7 @@ export default function Register() {
               <a className="link link-hover">Forgot password?</a>
             </div>
             <button className="btn btn-neutral mt-4">Register</button>
+            {err && <p className="text-red-500">{err}</p>}
             <p>
               Already have an account?{" "}
               <Link className="text-blue-400" to="/login">

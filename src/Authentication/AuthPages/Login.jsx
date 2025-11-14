@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../../Provider/AuthProvider";
 export default function Login() {
   const { googleLogIn, setUser, logIn } = useContext(Authcontext);
+  const navigate = useNavigate();
+  const loacation = useLocation();
   // login with google
   function handleGoogleLogIN() {
     googleLogIn()
-      .then((res) => setUser(res.user))
+      .then((res) => {
+        setUser(res.user)
+         navigate(loacation.state ? loacation.state : "/");
+      })
       .catch((err) => console.log(err.message));
   }
   // login with email pass
@@ -16,7 +21,10 @@ export default function Login() {
     const password = e.target.password.value;
     console.log(email, password);
     logIn(email, password)
-      .then((res) => alert("login successful"))
+      .then((res) => {
+        alert("login successful");
+        navigate(loacation.state ? loacation.state : "/");
+      })
       .catch((err) => alert("cant login"));
   }
   return (

@@ -7,6 +7,9 @@ import AddBooks from "../Pages/AddBooks";
 import MyBooks from "../Pages/MyBooks";
 import Login from "../Authentication/AuthPages/Login";
 import Register from "../Authentication/AuthPages/Register";
+import PrivateRoute from "../Provider/PrivateRoute";
+import ViewDetails from "../Pages/ViewDetails";
+import EditBook from "../Pages/EditBook";
 
 export const router = createBrowserRouter([
   {
@@ -20,14 +23,23 @@ export const router = createBrowserRouter([
       {
         path: "/allbooks",
         element: <AllBoooks />,
+        loader: () => fetch("http://localhost:3000/all-books"),
       },
       {
         path: "/addbooks",
-        element: <AddBooks />,
+        element: (
+          <PrivateRoute>
+            <AddBooks />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/mybooks",
-        element: <MyBooks />,
+        element: (
+          <PrivateRoute>
+            <MyBooks />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -36,6 +48,18 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/book-details/:id",
+        element: <ViewDetails />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/book-details/${params.id}`),
+      },
+      {
+        path: "/update-book/:id",
+        element: <EditBook />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/book-details/${params.id}`),
       },
     ],
   },
