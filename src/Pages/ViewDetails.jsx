@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
 import { Pencil, Trash2, User, Mail, Star } from "lucide-react";
+import { Authcontext } from "../Provider/AuthProvider";
 
 export default function ViewDetails() {
   const bookdetail = useLoaderData();
   const { coverImage, title, author, userEmail, rating, summury, _id } =
     bookdetail;
   const navigate = useNavigate();
+  const { user } = useContext(Authcontext);
 
   //   handleDelete
   const handleDelete = () => {
-    fetch(`http://localhost:3000/delete-book/${_id}`, {
+    fetch(`http://localhost:3000/delete-book/${_id}/?email=${user.email}`, {
       method: "delete",
+      headers: {
+        Authorization: `Bearer ${user.accessToken}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

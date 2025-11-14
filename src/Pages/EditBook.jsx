@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData, useParams } from "react-router";
+import { Authcontext } from "../Provider/AuthProvider";
 
 export default function EditBook() {
   const booksdata = useLoaderData();
   const { title, author, coverImage, rating, summury, userEmail, _id } =
     booksdata;
+  const { user } = useContext(Authcontext);
 
   function handleEditBook(e) {
     e.preventDefault();
@@ -20,7 +22,9 @@ export default function EditBook() {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
       },
+
       body: JSON.stringify(updatedBooksdata),
     })
       .then((res) => res.json())
