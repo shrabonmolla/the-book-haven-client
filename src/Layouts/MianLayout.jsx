@@ -5,11 +5,11 @@ import Footer from "../Components/Footer";
 
 export default function MianLayout() {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <nav className="mt-6">
         <Navbar />
       </nav>
-      <section>
+      <section className="flex-1">
         <Outlet />
       </section>
       <footer>
