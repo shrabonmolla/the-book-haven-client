@@ -1,12 +1,14 @@
 import React from "react";
 import Table from "../Components/Table";
 import { useLoaderData } from "react-router";
+import MainNavbar from "../Components/MainNavbar/MainNavbar";
 
 export default function AllBoooks() {
   const books = useLoaderData();
   console.log(books);
   return (
     <div>
+      <MainNavbar />
       <h1 className="text-2xl font-bold text-center">
         Total Books Found:{books.length}
       </h1>
