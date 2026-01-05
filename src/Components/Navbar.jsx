@@ -3,28 +3,96 @@ import { Link, NavLink } from "react-router";
 import logo from "../assets/logo.png";
 import { LogInIcon } from "lucide-react";
 import { Authcontext } from "../Provider/AuthProvider";
+import { ChevronDown } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const { user, logOut } = useContext(Authcontext);
   const lnikList = (
     <>
-      <li>
+      {/* <li>
         <NavLink to="/">Home</NavLink>
+      </li> */}
+      <li>
+        <NavLink to="/allbooks">সব বই</NavLink>
       </li>
       <li>
-        <NavLink to="/allbooks">All Books</NavLink>
+        <div className="dropdown dropdown-hover">
+          <div tabIndex={0} role="button" className="flex gap-1">
+            <span>লেখক</span> <ChevronDown className="w-4" />
+          </div>
+          <ul
+            tabIndex="-1"
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+        </div>
       </li>
       <li>
+        <div className="dropdown dropdown-hover">
+          <div tabIndex={0} role="button" className="flex gap-1">
+            <span>বিষয়</span> <ChevronDown className="w-4" />
+          </div>
+          <ul
+            tabIndex="-1"
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div className="dropdown dropdown-hover">
+          <div tabIndex={0} role="button" className="flex gap-1">
+            <span>প্রকাশনী </span> <ChevronDown className="w-4" />
+          </div>
+          <ul
+            tabIndex="-1"
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a> ইসলামি বই</a>
+      </li>
+      <li>
+        <a>ইংরেজি ভাষার বই</a>
+      </li>
+      <li>
+        <a>অফার</a>
+      </li>
+      <li>
+        <a>যোগাযোগ করুন</a>
+      </li>
+      {/* <li>
         <NavLink to="/addbooks">Add Books</NavLink>
       </li>
       <li>
         <NavLink to="/mybooks">My Books</NavLink>
-      </li>
+      </li> */}
     </>
   );
   // logout the user
   function handleLogOut() {
-    logOut();
+    logOut().then(() => toast.success("log out"));
   }
   return (
     <div>
@@ -68,7 +136,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="navbar-center hidden lg:flex border gap-3 border-gray-300 rounded-4xl p-1 shadow">
+        <div className="navbar-center hidden lg:flex    ">
           <ul className="menu menu-horizontal px-1">{lnikList} </ul>
         </div>
         <div className="navbar-end gap-4">
@@ -102,27 +170,35 @@ export default function Navbar() {
 
           {user ? (
             <>
-              <div className="tooltip" data-tip={user.displayName}>
-                <div className="avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={user.photoURL} />
+              {/* <div className="tooltip" data-tip={user.displayName}></div> */}
+
+              {/* my profle dropdown */}
+              <div className="dropdown dropdown-hover dropdown-left ">
+                <div tabIndex={0} role="button">
+                  <div className="avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={user.photoURL} />
+                    </div>
                   </div>
                 </div>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                >
+                  <li>
+                    <a>Item 1</a>
+                  </li>
+                  <li>
+                    <a onClick={handleLogOut}>Log Out</a>
+                  </li>
+                </ul>
               </div>
-
-              <Link onClick={handleLogOut} className="underline">
-                Log Out
-              </Link>
             </>
           ) : (
             <Link to="/login" className="underline">
               Login
             </Link>
           )}
-
-          <Link to="/register" className="btn rounded-4xl border-none">
-            Register <LogInIcon />
-          </Link>
         </div>
       </div>
     </div>

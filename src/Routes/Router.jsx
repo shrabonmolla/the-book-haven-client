@@ -27,8 +27,9 @@ export const router = createBrowserRouter([
       {
         path: "/allbooks",
         element: <AllBoooks />,
-        loader: () =>
-          fetch("https://book-haven-server-nine.vercel.app/all-books"),
+        // loader: () =>
+        //   // fetch("https://book-haven-server-nine.vercel.app/all-books"),
+        //   fetch("http://localhost:3000/all-books"),
       },
       {
         path: "/addbooks",

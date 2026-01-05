@@ -5,15 +5,17 @@ import { Suspense } from "react";
 import BookOftheWeek from "../Components/BookOftheWeek";
 import About from "../Components/About";
 import Loading from "../Components/Loading";
+import BookCard from "../Components/BookCard/BookCard";
 
 export default function Home() {
-  const bookPromise = fetch(
-    "https://book-haven-server-nine.vercel.app/latest-book"
-  ).then((res) => res.json());
+  const bookPromise = fetch("http://localhost:3000/latest-book").then((res) =>
+    res.json()
+  );
 
   return (
     <div>
       <Banner />
+
       <Suspense fallback={<Loading />}>
         <LatestBook bookPromise={bookPromise} />
       </Suspense>
