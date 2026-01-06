@@ -31,6 +31,7 @@ export const router = createBrowserRouter([
         //   // fetch("https://book-haven-server-nine.vercel.app/all-books"),
         //   fetch("http://localhost:3000/all-books"),
       },
+
       {
         path: "/addbooks",
         element: (
@@ -64,9 +65,7 @@ export const router = createBrowserRouter([
         path: "/book-details/:id",
         element: <ViewDetails />,
         loader: ({ params }) =>
-          fetch(
-            `https://book-haven-server-nine.vercel.app/book-details/${params.id}`
-          ),
+          fetch(`http://localhost:3000/book-details/${params.id}`),
       },
       {
         path: "/update-book/:id",

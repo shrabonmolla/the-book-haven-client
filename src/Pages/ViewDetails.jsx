@@ -1,97 +1,110 @@
-import React, { useContext } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router";
-import { Pencil, Trash2, User, Mail, Star } from "lucide-react";
-import { Authcontext } from "../Provider/AuthProvider";
-import toast from "react-hot-toast";
+import React from "react";
+import { useLoaderData } from "react-router";
 
-export default function ViewDetails() {
-  const bookdetail = useLoaderData();
-  const { coverImage, title, author, userEmail, rating, summury, _id, genre } =
-    bookdetail;
-  const navigate = useNavigate();
-  const { user } = useContext(Authcontext);
+// const bookData = {
+//   title: "Introduction to Calculus",
+//   author: "James Stewart",
+//   description:
+//     "A complete beginner-friendly calculus book for university students.",
+//   price: 650,
+//   discountPrice: 550,
+//   category: "Mathematics",
+//   publisher: "Cengage Learning",
+//   language: "English",
+//   pages: 1200,
+//   stock: 20,
+//   rating: 4.6,
+//   coverImage: "https://images.unsplash.com/photo-1509228468518-180dd48a5791",
+// };
 
-  //   handleDelete
-  const handleDelete = () => {
-    fetch(
-      `https://book-haven-server-nine.vercel.app/delete-book/${_id}/?email=${user.email}`,
-      {
-        method: "delete",
-        headers: {
-          Authorization: `Bearer ${user.accessToken}`,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("delted one book ", data);
-        toast.success("you delete this book");
-        navigate("/");
-      });
-  };
+const ViewDetails = () => {
+  const bookData = useLoaderData();
+  console.log(bookData);
+
+  const discount = bookData.discountPrice
+    ? Math.round(
+        ((bookData.price - bookData.discountPrice) / bookData.price) * 100
+      )
+    : 0;
 
   return (
-    <div className="w-11/12 mx-auto py-8">
-      <div className="bg-white shadow-md border border-green-200 rounded-xl overflow-hidden flex flex-col md:flex-row">
-        {/* Image Section */}
-        <div className=" p-4 flex justify-center items-center md:w-1/3">
+    <div className="container mx-auto p-4">
+      <div className="bg-base-100 shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-6">
+        {/* Cover Image */}
+        <div className="flex-shrink-0">
           <img
-            className="w-48 md:w-56 rounded-lg shadow-sm border "
-            src={coverImage}
-            alt={title}
+            src={bookData.coverImage}
+            alt={bookData.title}
+            className="w-48 h-64 object-cover rounded-lg"
           />
         </div>
 
-        {/* Content Section */}
-        <div className="card-body p-6 md:w-2/3 space-y-4">
-          {/* Title */}
-          <h2 className="text-2xl md:text-3xl font-bold text-green-700">
-            {title}
-          </h2>
-          {/* genre */}
-          <div className="badge badge-soft badge-accent">{genre}</div>
+        {/* Book Details */}
+        <div className="flex-1 space-y-3">
+          <h1 className="text-2xl font-bold">{bookData.title}</h1>
+          <p className="text-sm text-gray-600">by {bookData.author}</p>
 
-          {/* Book Info */}
-          <div className="space-y-3 text-gray-700">
-            <p className="flex items-center gap-2">
-              <User size={18} className="text-green-600" />
-              <span className="font-medium">Author:</span> {author}
-            </p>
+          {/* Rating */}
+          <p className="text-yellow-500 font-semibold">
+            ⭐ {bookData.rating} / 5
+          </p>
 
-            <p className="flex items-center gap-2">
-              <Mail size={18} className="text-green-600" />
-              <span className="font-medium">Uploaded By:</span> {userEmail}
-            </p>
-
-            <p className="flex items-center gap-2">
-              <Star size={18} className="text-green-600" />
-              <span className="font-medium">Rating:</span> {rating}
-            </p>
+          {/* Price */}
+          <div className="flex items-center gap-2">
+            {bookData.discountPrice ? (
+              <>
+                <span className="text-error font-bold text-xl">
+                  ৳ {bookData.discountPrice}
+                </span>
+                <span className="line-through text-gray-400 text-sm">
+                  ৳ {bookData.price}
+                </span>
+                <span className="bg-error text-white text-xs px-2 py-1 rounded">
+                  -{discount}%
+                </span>
+              </>
+            ) : (
+              <span className="text-error font-bold text-xl">
+                ৳ {bookData.price}
+              </span>
+            )}
           </div>
 
-          {/* Summary */}
-          <p className="text-gray-600 leading-relaxed">{summury}</p>
+          {/* Description */}
+          <p className="text-gray-700">{bookData.description}</p>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-3 pt-3">
-            <Link
-              to={`/update-book/${_id}`}
-              className="btn btn-outline border-green-500 text-green-600 hover:bg-green-500 hover:text-white flex items-center gap-2"
-            >
-              <Pencil size={18} />
-              Edit
-            </Link>
-
-            <button
-              onClick={handleDelete}
-              className="btn btn-outline border-red-500 text-red-600 hover:bg-red-500 hover:text-white flex items-center gap-2"
-            >
-              <Trash2 size={18} />
-              Delete
-            </button>
+          {/* Additional Info */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
+            <div>
+              <span className="font-semibold">Category: </span>
+              {bookData.category}
+            </div>
+            <div>
+              <span className="font-semibold">Publisher: </span>
+              {bookData.publisher}
+            </div>
+            <div>
+              <span className="font-semibold">Language: </span>
+              {bookData.language}
+            </div>
+            <div>
+              <span className="font-semibold">Pages: </span>
+              {bookData.pages}
+            </div>
+            <div>
+              <span className="font-semibold">Stock: </span>
+              {bookData.stock}
+            </div>
           </div>
+
+          {/* Buy Button */}
+          <button className="btn btn-primary mt-4 w-full md:w-48">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default ViewDetails;
