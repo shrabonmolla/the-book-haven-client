@@ -12,7 +12,10 @@ import ViewDetails from "../Pages/ViewDetails";
 import EditBook from "../Pages/EditBook";
 import Error from "../Pages/Error";
 import Loading from "../Components/Loading";
-
+import EnglishBook from "../Pages/EnglishBook";
+import FilteredBooks from "../Pages/FilteredBooks";
+import Contact from "../Pages/Contact";
+import OfferPage from "../Pages/OfferPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +33,14 @@ export const router = createBrowserRouter([
         // loader: () =>
         //   // fetch("https://book-haven-server-nine.vercel.app/all-books"),
         //   fetch("http://localhost:3000/all-books"),
+      },
+      {
+        path: "/english-book",
+        element: <EnglishBook />,
+      },
+      {
+        path: "/books/:type/:value",
+        element: <FilteredBooks />,
       },
 
       {
@@ -60,6 +71,14 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/offer",
+        element: <OfferPage />,
       },
       {
         path: "/book-details/:id",

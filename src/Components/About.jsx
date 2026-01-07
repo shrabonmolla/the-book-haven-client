@@ -1,10 +1,11 @@
 import React from "react";
+import Title from "./Title/Title";
 
 export default function About() {
   return (
-    <div>
+    <div className="w-11/12 mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-center">About The Book Haven</h1>
+        <Title>About The Book Haven</Title>
       </div>
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" defaultChecked />

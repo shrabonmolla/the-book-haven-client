@@ -1,102 +1,115 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../assets/logo.png";
-import { LogInIcon } from "lucide-react";
 import { Authcontext } from "../Provider/AuthProvider";
 import { ChevronDown } from "lucide-react";
 import toast from "react-hot-toast";
+// import { useQuery } from "@tanstack/react-query";
+// import useAxios from "../Hooks/useAxios";
 
-export default function Navbar() {
+export default function Navbar({ categories = [], publishers = [] }) {
   const { user, logOut } = useContext(Authcontext);
+  // const axiosInstance = useAxios();
+
+  // // Fetch categories
+  // const { data: categories = [] } = useQuery({
+  //   queryKey: ["categories"],
+  //   queryFn: async () => {
+  //     const res = await axiosInstance.get("/categories");
+  //     return res.data;
+  //   },
+  // });
+
+  // // Fetch publishers
+  // const { data: publishers = [] } = useQuery({
+  //   queryKey: ["publishers"],
+  //   queryFn: async () => {
+  //     const res = await axiosInstance.get("/publishers");
+  //     return res.data;
+  //   },
+  // });
+
   const lnikList = (
     <>
-      {/* <li>
-        <NavLink to="/">Home</NavLink>
-      </li> */}
       <li>
         <NavLink to="/allbooks">সব বই</NavLink>
       </li>
+
+      {/* Category Dropdown */}
       <li>
-        <div className="dropdown dropdown-hover">
-          <div tabIndex={0} role="button" className="flex gap-1">
-            <span>লেখক</span> <ChevronDown className="w-4" />
-          </div>
-          <ul
-            tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-          >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <div className="dropdown dropdown-hover">
-          <div tabIndex={0} role="button" className="flex gap-1">
+        <div className="dropdown dropdown-hover w-full">
+          <div tabIndex={0} role="button" className="flex gap-1 cursor-pointer">
             <span>বিষয়</span> <ChevronDown className="w-4" />
           </div>
           <ul
             tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            className="dropdown-content menu bg-base-100 rounded-box  p-4 shadow-md
+                       w-64 md:w-96 max-h-80 overflow-y-auto
+                       grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
+            {categories.map((cat) => (
+              <li key={cat}>
+                <NavLink
+                  to={`/books/category/${cat}`}
+                  className="hover:bg-gray-100 rounded px-2 py-1"
+                >
+                  {cat}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
       </li>
+
+      {/* Publisher Dropdown */}
       <li>
-        <div className="dropdown dropdown-hover">
-          <div tabIndex={0} role="button" className="flex gap-1">
+        <div className="dropdown dropdown-hover w-full">
+          <div tabIndex={0} role="button" className="flex gap-1 cursor-pointer">
             <span>প্রকাশনী </span> <ChevronDown className="w-4" />
           </div>
           <ul
             tabIndex="-1"
-            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+            className="dropdown-content menu bg-base-100 rounded-box z-50 p-4 shadow-md
+                       w-64 md:w-96 max-h-80 overflow-y-auto
+                       grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
+            {publishers.map((pub) => (
+              <li key={pub}>
+                <NavLink
+                  to={`/books/publisher/${pub}`}
+                  className="hover:bg-gray-100 rounded px-2 py-1"
+                >
+                  {pub}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
       </li>
-      <li>
-        <a> ইসলামি বই</a>
-      </li>
-      <li>
-        <a>ইংরেজি ভাষার বই</a>
-      </li>
-      <li>
-        <a>অফার</a>
-      </li>
-      <li>
-        <a>যোগাযোগ করুন</a>
-      </li>
+
       {/* <li>
-        <NavLink to="/addbooks">Add Books</NavLink>
+        <a> ইসলামি বই</a>
+      </li> */}
+      <li>
+        <NavLink to="/english-book">ইংরেজি ভাষার বই</NavLink>
       </li>
       <li>
-        <NavLink to="/mybooks">My Books</NavLink>
-      </li> */}
+        <Link to="/offer">অফার</Link>
+      </li>
+      <li>
+        <Link to="/contact">যোগাযোগ করুন</Link>
+      </li>
     </>
   );
+
   // logout the user
   function handleLogOut() {
     logOut().then(() => toast.success("log out"));
   }
+
   return (
     <div>
-      <div className="navbar  ">
+      <div className="navbar z-40">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -107,18 +120,17 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />
               </svg>
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
             >
               {lnikList}
             </ul>
@@ -128,7 +140,7 @@ export default function Navbar() {
             className="flex justify-center items-center gap-4 text-xl"
           >
             <img className="w-8" src={logo} alt="logo" />
-            <div className="leading-none text-start font-bold">
+            <div className="leading-none text-start font-bold text-sm">
               The <br />
               Book <br />
               Haven
@@ -136,20 +148,19 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="navbar-center hidden lg:flex    ">
-          <ul className="menu menu-horizontal px-1">{lnikList} </ul>
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{lnikList}</ul>
         </div>
+
         <div className="navbar-end gap-4">
-          {/* toogle */}
+          {/* theme toggle */}
           <label className="swap swap-rotate">
-            {/* this hidden checkbox controls the state */}
             <input
               type="checkbox"
               className="theme-controller"
               value="cupcake"
             />
-
-            {/* sun icon */}
+            {/* sun */}
             <svg
               className="swap-off h-10 w-10 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -157,8 +168,7 @@ export default function Navbar() {
             >
               <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
             </svg>
-
-            {/* moon icon */}
+            {/* moon */}
             <svg
               className="swap-on h-10 w-10 fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -169,31 +179,26 @@ export default function Navbar() {
           </label>
 
           {user ? (
-            <>
-              {/* <div className="tooltip" data-tip={user.displayName}></div> */}
-
-              {/* my profle dropdown */}
-              <div className="dropdown dropdown-hover dropdown-left ">
-                <div tabIndex={0} role="button">
-                  <div className="avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={user.photoURL} />
-                    </div>
+            <div className="dropdown dropdown-hover dropdown-left">
+              <div tabIndex={0} role="button">
+                <div className="avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoURL} alt="profile" />
                   </div>
                 </div>
-                <ul
-                  tabIndex="-1"
-                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-                >
-                  <li>
-                    <a>Item 1</a>
-                  </li>
-                  <li>
-                    <a onClick={handleLogOut}>Log Out</a>
-                  </li>
-                </ul>
               </div>
-            </>
+              <ul
+                tabIndex="-1"
+                className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow-sm"
+              >
+                <li>
+                  <a>Profile</a>
+                </li>
+                <li>
+                  <a onClick={handleLogOut}>Log Out</a>
+                </li>
+              </ul>
+            </div>
           ) : (
             <Link to="/login" className="underline">
               Login

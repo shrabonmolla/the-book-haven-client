@@ -1,10 +1,11 @@
 import React from "react";
 import { Pencil, Trash2, User, Mail, Star } from "lucide-react";
+import Title from "./Title/Title";
 export default function BookOftheWeek() {
   return (
     <div>
       <div>
-        <h1 className="text-2xl font-bold text-center">Book of the Week</h1>
+        <Title>Book of the Week</Title>
       </div>
       <div className="w-11/12 mx-auto py-8">
         <div className="bg-white shadow-md border border-green-200 rounded-xl overflow-hidden flex flex-col md:flex-row">
